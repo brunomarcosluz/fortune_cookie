@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components/cookie_advice.dart';
 
 void main() {
   runApp(const FortuneCookie());
@@ -12,17 +13,17 @@ class FortuneCookie extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
+        /* appBar: AppBar(
           title: const Text(''),
           backgroundColor: Colors.white,
           elevation: 0,
-        ),
+        ), */
         body: Center(
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(0, 60, 0, 30),
-                child: Text(
+                margin: EdgeInsets.fromLTRB(0, 220, 0, 30),
+                child: const Text(
                   'Crack the Cookie 🥠',
                   style: TextStyle(
                     fontFamily: 'Roboto',
@@ -32,12 +33,7 @@ class FortuneCookie extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                child: Image.asset(
-                  'assets/1.png',
-                  fit: BoxFit.cover,
-                ),
-              )
+              CookieAdvice(),
             ],
           ),
         ),
