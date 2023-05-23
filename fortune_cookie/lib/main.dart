@@ -13,16 +13,30 @@ class FortuneCookie extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Fortune Cookie App'),
+          title: const Text(''),
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
         body: Center(
           child: Column(
             children: [
               Container(
-                child: Text('Crack the Cookie'),
+                margin: EdgeInsets.fromLTRB(0, 60, 0, 30),
+                child: Text(
+                  'Crack the Cookie 🥠',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black
+                  ),
+                ),
               ),
               Container(
-                child: Placeholder(),
+                child: Image.asset(
+                  'assets/1.png',
+                  fit: BoxFit.cover,
+                ),
               )
             ],
           ),
