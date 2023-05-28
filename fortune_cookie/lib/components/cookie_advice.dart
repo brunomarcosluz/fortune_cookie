@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import '../models/advice.dart';
+import 'repository.dart';
 
 class CookieAdvice extends StatefulWidget {
   const CookieAdvice({super.key});
@@ -10,37 +10,43 @@ class CookieAdvice extends StatefulWidget {
 }
 
 class _CookieState extends State<CookieAdvice> {
-  Future<Map<String, dynamic>> catchAdvice() async {
-    var url = Uri.parse('https://api.adviceslip.com/advice');
-    var response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Error obtain data from the server');
-    }
+  Future<List<Advice>>? futureAdvices;
+
+  @override
+  void initState() {
+    futureAdvices = getAdvice();
+    super.initState();
+  }
+
+  bool _mostrarImagem = true;
+  void _alternarWidget() {
+    setState(() {
+      _mostrarImagem = !_mostrarImagem;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>>(
-        future: catchAdvice(),
+    return FutureBuilder<List<Advice>>(
+        future: getAdvice(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Deu erro mano'));
+            return const Center(child: Text('Deu erro mano'));
           } else if (snapshot.hasData) {
             return GestureDetector(
-              onTap: () {
-                
-              },
-              child: Container(
-                height: 200,
-                color: Colors.red,
-                child: Image.asset(
-                  'assets/images/fortune_cookie.png',
-                  fit: BoxFit.cover,
-                ),
-              ));
+              onTap: () => _alternarWidget(),
+              child: _mostrarImagem
+                  ? Container(
+                      height: 200,
+                      color: Colors.red,
+                      child: Image.asset(
+                        'assets/images/fortune_cookie.png',
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Text('${snapshot.data}'),
+            );
           }
           return Center(
             child: CircularProgressIndicator(),
@@ -48,12 +54,3 @@ class _CookieState extends State<CookieAdvice> {
         });
   }
 }
-
-/* Container(
-      height: 200,
-      color: Colors.red,
-      child: Image.asset(
-        'assets/images/fortune_cookie.png',
-        fit: BoxFit.cover,
-      ),
-    );*/
