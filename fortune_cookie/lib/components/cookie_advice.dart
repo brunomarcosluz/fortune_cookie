@@ -48,7 +48,7 @@ class _CookieState extends State<CookieAdvice> {
                   : Text('${snapshot.data}'),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         });
